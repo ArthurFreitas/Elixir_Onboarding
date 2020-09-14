@@ -6,9 +6,11 @@ defmodule Ims.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
+
     children = [
       # Start the Ecto repository
-      Ims.Repo,
+      supervisor(Ims.Repo,[]),
       # Start the Telemetry supervisor
       ImsWeb.Telemetry,
       # Start the PubSub system

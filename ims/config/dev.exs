@@ -2,9 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :ims, Ims.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "ims_dev",
+  database: "ims_development",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

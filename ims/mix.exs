@@ -20,7 +20,7 @@ defmodule Ims.MixProject do
   def application do
     [
       mod: {Ims.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :mongodb_ecto, :ecto]
     ]
   end
 
@@ -35,8 +35,8 @@ defmodule Ims.MixProject do
     [
       {:phoenix, "~> 1.5.4"},
       {:phoenix_ecto, "~> 4.1"},
-      {:ecto_sql, "~> 3.4"},
-      {:postgrex, ">= 0.0.0"},
+      {:ecto, "~> 2.1.6", override: true},
+      {:mongodb_ecto, github: "michalmuskala/mongodb_ecto", branch: "ecto-2"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.2"},
