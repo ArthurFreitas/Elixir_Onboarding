@@ -15,8 +15,13 @@ defmodule ImsWeb.Router do
 
   scope "/", ImsWeb do
     pipe_through :browser
+    get "/", ProductController, :index
+  end
 
-    get "/", PageController, :index
+  scope "/product", ImsWeb do
+    pipe_through :browser
+    get "/", ProductController, :index
+    get "/:id", ProductController, :show
   end
 
   # Other scopes may use custom stacks.
