@@ -21,7 +21,7 @@
         <td><%= product.price %></td>
         <td>
           <span><%= link "Show", to: Routes.product_path(@conn, :show, product) %></span>
-          <span></span>
+          <span><%= link "Destroy", to: Routes.product_path(@conn, :destroy, product), method: :delete, data: [confirm: "Are you sure?"] %></span>
           <span></span>
         <td>
       </tr>

@@ -22,6 +22,7 @@ defmodule ImsWeb.Router do
     pipe_through :browser
     get "/", ProductController, :index
     get "/:id", ProductController, :show
+    delete "/:id", ProductController, :destroy
   end
 
   # Other scopes may use custom stacks.

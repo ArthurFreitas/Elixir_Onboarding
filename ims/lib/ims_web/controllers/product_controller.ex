@@ -23,5 +23,7 @@ defmodule ImsWeb.ProductController do
   end
 
   def destroy(conn, %{"id" => id}) do
+    ProductHelper.delete(id)
+    conn |> redirect(to: "/product") |> halt()
   end
 end

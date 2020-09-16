@@ -22,4 +22,13 @@ defmodule Ims.ProductHelper do
     |> User.changeset(attrs)
     |> Repo.update()
   end
+
+  def delete(id) when is_bitstring(id)do
+    product = get!(id)
+    delete(product)
+  end
+
+  def delete(%Product{} = product) do
+    Repo.delete(product)
+  end
 end
