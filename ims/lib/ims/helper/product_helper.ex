@@ -19,7 +19,7 @@ defmodule Ims.ProductHelper do
 
   def update(%Product{} = product, attrs) do
     product
-    |> User.changeset(attrs)
+    |> Product.changeset(attrs)
     |> Repo.update()
   end
 

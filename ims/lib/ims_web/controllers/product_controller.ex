@@ -17,6 +17,9 @@ defmodule ImsWeb.ProductController do
   end
 
   def edit(conn, %{"id" => id}) do
+    product = ProductHelper.get!(id)
+    changeset = Product.changeset(product,%{})
+    render(conn, :edit, changeset: changeset, product: product)
   end
 
   def create(conn, %{"product" => product}) do
@@ -24,7 +27,10 @@ defmodule ImsWeb.ProductController do
     redirectToIndex(conn)
   end
 
-  def update(conn, %{"id" => id}) do
+  def update(conn, %{"id" => id, "product" => updatedProduct}) do
+    product = ProductHelper.get!(id)
+    ProductHelper.update(product, updatedProduct)
+    redirectToIndex(conn)
   end
 
   def destroy(conn, %{"id" => id}) do
