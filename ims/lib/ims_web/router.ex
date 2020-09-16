@@ -21,6 +21,8 @@ defmodule ImsWeb.Router do
   scope "/product", ImsWeb do
     pipe_through :browser
     get "/", ProductController, :index
+    post "/", ProductController, :create
+    get "/new", ProductController, :new
     get "/:id", ProductController, :show
     delete "/:id", ProductController, :destroy
   end

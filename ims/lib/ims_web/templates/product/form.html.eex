@@ -1,0 +1,20 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= label f, :SKU %>
+  <%= text_input f, :SKU %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+
+  <%= label f, :description %>
+  <%= text_input f, :description %>
+
+  <%= label f, :quantity %>
+  <%= number_input f, :quantity %>
+
+  <%= label f, :price %>
+  <%= number_input f, :price, step: "any" %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
