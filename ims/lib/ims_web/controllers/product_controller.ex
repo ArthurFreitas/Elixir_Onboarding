@@ -1,13 +1,13 @@
 defmodule ImsWeb.ProductController do
   use ImsWeb, :controller
-  @products_mock ([%{SKU: "sku", name: "nome", description: "description", quantity: 15, price: 150.9 }])
+  alias Ims.ProductHelper
 
   def index(conn, _params) do
-    render(conn, :list, products: @products_mock)
+    render(conn, :list, products: ProductHelper.list)
   end
 
   def show(conn, %{"id" => id}) do
-    render(conn, :show, id: id, product: hd(@products_mock))
+    render(conn, :show, id: id, product: ProductHelper.get!(id))
   end
 
   def new(conn, _params) do

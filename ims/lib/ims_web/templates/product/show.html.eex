@@ -1,6 +1,6 @@
 <p>
   <strong>Sku:</strong>
-  <%= @product[:SKU] %>
+  <%= @product."SKU"%>
 </p>
 
 <p>
