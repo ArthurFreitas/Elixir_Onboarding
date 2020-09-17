@@ -11,7 +11,7 @@ defmodule ImsWeb.ProductController do
     render(conn, :show, id: id, product: ProductHelper.get!(id))
   end
 
-  def new(conn, params) do
+  def new(conn, _params) do
     changeset = Product.changeset(%Product{}, %{})
     render(conn, :new, changeset: changeset)
   end
