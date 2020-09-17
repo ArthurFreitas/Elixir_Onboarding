@@ -7,8 +7,8 @@ defmodule Ims.ProductHelper do
     Repo.all(Product)
   end
 
-  def get!(id) do
-    Repo.get!(Product, id)
+  def get(id) do
+    Repo.get(Product, id)
   end
 
   def insert(attrs \\ %{}) do
@@ -24,7 +24,7 @@ defmodule Ims.ProductHelper do
   end
 
   def delete(id) when is_bitstring(id)do
-    product = get!(id)
+    product = get(id)
     delete(product)
   end
 

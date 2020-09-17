@@ -23,6 +23,7 @@ defmodule ImsWeb.Router do
     get "/", ProductController, :index
     post "/", ProductController, :create
     get "/new", ProductController, :new
+    get "/missing", ProductController, :missing
     get "/users/:id/edit", ProductController, :edit
     get "/:id", ProductController, :show
     put "/:id", ProductController, :update

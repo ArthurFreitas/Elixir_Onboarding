@@ -1,0 +1,10 @@
+<h1> This product does not exist <h1>
+<script type="text/javascript">
+    function redirectToIndex(){
+        var delay = 3000;
+        setTimeout(function(){
+            window.location = "/product";
+        }, delay);
+    }
+    redirectToIndex();
+</script>

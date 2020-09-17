@@ -8,7 +8,7 @@ defmodule ImsWeb.ProductController do
   end
 
   def show(conn, %{"id" => id}) do
-    render(conn, :show, id: id, product: ProductHelper.get!(id))
+    render(conn, :show, id: id, product: handleProductQuery(conn, id))
   end
 
   def new(conn, _params) do
@@ -17,7 +17,7 @@ defmodule ImsWeb.ProductController do
   end
 
   def edit(conn, %{"id" => id}) do
-    product = ProductHelper.get!(id)
+    product = handleProductQuery(conn, id)
     changeset = Product.changeset(product,%{})
     render(conn, :edit, changeset: changeset, product: product)
   end
@@ -28,7 +28,7 @@ defmodule ImsWeb.ProductController do
   end
 
   def update(conn, %{"id" => id, "product" => updatedProduct}) do
-    product = ProductHelper.get!(id)
+    product = handleProductQuery(conn, id)
     ProductHelper.update(product, updatedProduct)
     redirectToIndex(conn)
   end
@@ -38,7 +38,22 @@ defmodule ImsWeb.ProductController do
     redirectToIndex(conn)
   end
 
+  def missing(conn, _params) do
+    render(conn, :missing)
+  end
+
   defp redirectToIndex(conn) do
     conn |> redirect(to: "/product") |> halt()
+  end
+
+  defp handleProductQuery(conn, id) do
+    case ProductHelper.get(id) do
+      %Product{} = product -> product
+      nil -> showMissingProductPage(conn)
+    end
+  end
+
+  defp showMissingProductPage(conn) do
+    conn |> redirect(to: "/product/missing") |> halt()
   end
 end
