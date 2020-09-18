@@ -48,8 +48,8 @@ defmodule ImsWeb.ProductController do
 
   defp handleProductQuery(conn, id) do
     case ProductHelper.get(id) do
-      %Product{} = product -> product
-      nil -> showMissingProductPage(conn)
+      {:ok, product} -> product
+      {:error, _} -> showMissingProductPage(conn)
     end
   end
 

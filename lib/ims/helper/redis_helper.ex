@@ -4,8 +4,8 @@ defmodule Ims.RedisHelper do
 
   def get(key) do
     case Api.get(key) do
-      :undefined -> {:error}
-      value -> {:ok, value}
+      value when is_bitstring(value)-> {:ok, value}
+      _ -> {:error, :not_json}
     end
   end
 
@@ -14,7 +14,10 @@ defmodule Ims.RedisHelper do
   end
 
   def set(key,value) do
-    Api.set(key, Poison.encode!(value))
+    case Poison.encode(value) do
+      {:ok, json} -> Api.set(key,json)
+      other -> other
+    end
   end
 
   def del(%{id: key}) do

@@ -9,15 +9,15 @@ defmodule Ims.ProductHelper do
   end
 
   def get(id) do
-    with {:error} <- RedisHelper.get(id),
+    with {:error, _} <- RedisHelper.get(id),
       %Product{} = product <- Repo.get(Product, id) do
         RedisHelper.set(product)
-        product
+        {:ok, product}
       else
         {:ok, json} ->
           Product.from_json(json)
         _ ->
-          nil
+          {:error, :not_found}
     end
   end
 
@@ -35,13 +35,12 @@ defmodule Ims.ProductHelper do
   end
 
   def delete(id) when is_bitstring(id) do
-    RedisHelper.del(id)
-    product = get(id)
+    {:ok, product} = get(id)
     delete(product)
   end
 
-  def delete(%Product{id: id} = product) do
-    RedisHelper.del(id)
+  def delete(%Product{} = product) do
+    RedisHelper.del(product)
     Repo.delete(product)
   end
 end

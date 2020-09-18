@@ -27,6 +27,8 @@ defmodule ImsWeb.Router do
     get "/users/:id/edit", ProductController, :edit
     get "/:id", ProductController, :show
     put "/:id", ProductController, :update
+    patch "/:id", ProductController, :update
+    post "/:id", ProductController, :update
     delete "/:id", ProductController, :destroy
   end
 

@@ -2,7 +2,7 @@ defmodule Ims.Product do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, only: [:SKU, :description, :name, :price, :quantity]}
+  @derive {Poison.Encoder, only: [:SKU, :description, :name, :price, :quantity, :id]}
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "products" do
     field :SKU
@@ -20,6 +20,6 @@ defmodule Ims.Product do
   end
 
   def from_json(json) do
-    Poison.decode!(json, as: %Ims.Product{})
+    Poison.decode(json, as: %Ims.Product{})
   end
 end
