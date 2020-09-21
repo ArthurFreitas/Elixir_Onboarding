@@ -46,7 +46,8 @@ defmodule Ims.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:exredis, ">= 0.2.4"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:tirexs, "~> 0.8.15"}
     ]
   end
 
