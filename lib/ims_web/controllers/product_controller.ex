@@ -2,6 +2,7 @@ defmodule ImsWeb.ProductController do
   use ImsWeb, :controller
   alias Ims.ProductHelper
   alias Ims.Product
+  alias Ims.RedisHelper
 
   def index(conn, _params) do
     render(conn, :list, products: ProductHelper.list)
@@ -17,6 +18,7 @@ defmodule ImsWeb.ProductController do
   end
 
   def edit(conn, %{"id" => id}) do
+    RedisHelper.del(id)
     product = handleProductQuery(conn, id)
     changeset = Product.changeset(product,%{})
     render(conn, :edit, changeset: changeset, product: product)
