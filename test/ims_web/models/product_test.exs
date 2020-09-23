@@ -57,4 +57,8 @@ defmodule ImsWeb.ProductTest do
   test "price should default to zero" do
     assert 0 = %Product{}.price
   end
+
+  test "barcode should default to 00000000" do
+    assert "00000000" = %Product{}.barcode
+  end
 end
