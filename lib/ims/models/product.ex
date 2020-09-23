@@ -13,6 +13,10 @@ defmodule Ims.Product do
     field :barcode
   end
 
+  def create(attrs) do
+    %Ims.Product{}
+    |> changeset(attrs)
+  end
   @doc false
   def changeset(product, attrs) do
     product
