@@ -26,4 +26,12 @@ defmodule ImsWeb.ProductTest do
 
     assert "can't be blank" in errors_on(changeset).name
   end
+
+  test "price is greater than zero" do
+    changeset = @valid_product_attrs
+    |> Map.put(:price, -1.0)
+    |> Product.create()
+
+    assert "must be greater than 0" in errors_on(changeset).price
+  end
 end

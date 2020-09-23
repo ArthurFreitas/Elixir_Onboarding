@@ -20,7 +20,8 @@ defmodule Ims.Product do
   @doc false
   def changeset(product, attrs) do
     product
-    |> cast(attrs, [:SKU, :name, :description, :quantity, :price])
+    |> cast(attrs, [:SKU, :name, :description, :quantity, :price, :barcode])
+    |> validate_number(:price, greater_than: 0)
     |> validate_required([:SKU, :name, :price])
   end
 
