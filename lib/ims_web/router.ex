@@ -1,5 +1,12 @@
 defmodule ImsWeb.Router do
+  alias Ims.ElasticSearchHelper
   use ImsWeb, :router
+  use Plug.ErrorHandler
+
+  def handle_errors(conn, %{kind: _kind, reason: _reason, stack: stack} = err) do
+    err = %{err | stack: Exception.format_stacktrace(stack)}
+    ElasticSearchHelper.post(:error, :uncaught, conn, err)
+  end
 
   pipeline :browser do
     plug :accepts, ["html"]
