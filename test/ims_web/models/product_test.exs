@@ -2,12 +2,6 @@ defmodule ImsWeb.ProductTest do
   use Ims.DataCase
   alias Ims.Product
 
-  # :SKU
-  #   field :description
-  #   field :name
-  #   field :price, :float
-  #   field :quantity, :integer
-
   @valid_product_attrs %{
     SKU: "AbC-12",
     name: "Abacate",
@@ -41,5 +35,22 @@ defmodule ImsWeb.ProductTest do
     |> Product.create()
 
     assert "has invalid format" in errors_on(changeset).'SKU'
+  end
+
+  test "barcode should have more than 8 and less than 13 digits" do
+    changeset = @valid_product_attrs
+    |> Map.put(:barcode, "1234567a")
+    |> Product.create()
+    assert "has invalid format" in errors_on(changeset).barcode
+
+    changeset = @valid_product_attrs
+    |> Map.put(:barcode, "1234567")
+    |> Product.create()
+    assert "should be at least 8 character(s)" in errors_on(changeset).barcode
+
+    changeset = @valid_product_attrs
+    |> Map.put(:barcode, "12345678901234")
+    |> Product.create()
+    assert "should be at most 13 character(s)" in errors_on(changeset).barcode
   end
 end
