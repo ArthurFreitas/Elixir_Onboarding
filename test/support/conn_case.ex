@@ -31,13 +31,7 @@ defmodule ImsWeb.ConnCase do
     end
   end
 
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Ims.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Ims.Repo, {:shared, self()})
-    end
-
+  setup __tags do
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

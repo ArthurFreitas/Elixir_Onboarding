@@ -27,16 +27,6 @@ defmodule Ims.DataCase do
     end
   end
 
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Ims.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Ims.Repo, {:shared, self()})
-    end
-
-    :ok
-  end
-
   @doc """
   A helper that transforms changeset errors into a map of messages.
 
