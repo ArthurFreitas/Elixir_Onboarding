@@ -21,8 +21,9 @@ defmodule Ims.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:SKU, :name, :description, :quantity, :price, :barcode])
-    |> validate_number(:price, greater_than: 0)
     |> validate_required([:SKU, :name, :price])
+    |> validate_number(:price, greater_than: 0)
+    |> validate_format(:SKU, ~r/[a-zA-Z0-9\-]/)
   end
 
   def from_json(json) do

@@ -34,4 +34,12 @@ defmodule ImsWeb.ProductTest do
 
     assert "must be greater than 0" in errors_on(changeset).price
   end
+
+  test "SKU should have only letters, numbers and hyphen" do
+    changeset = @valid_product_attrs
+    |> Map.put(:SKU, "@'~;")
+    |> Product.create()
+
+    assert "has invalid format" in errors_on(changeset).'SKU'
+  end
 end
