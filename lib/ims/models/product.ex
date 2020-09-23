@@ -10,13 +10,14 @@ defmodule Ims.Product do
     field :name
     field :price, :float
     field :quantity, :integer
+    field :barcode
   end
 
   @doc false
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:SKU, :name, :description, :quantity, :price])
-    |> validate_required([:SKU, :name, :description, :quantity, :price])
+    |> validate_required([:SKU, :name, :price])
   end
 
   def from_json(json) do
