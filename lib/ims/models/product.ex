@@ -23,7 +23,7 @@ defmodule Ims.Product do
     |> cast(attrs, [:SKU, :name, :description, :quantity, :price, :barcode])
     |> validate_required([:SKU, :name, :price])
     |> validate_number(:price, greater_than: 0)
-    |> validate_format(:SKU, ~r/[a-zA-Z0-9\-]/)
+    |> validate_format(:SKU, ~r/^[a-zA-Z0-9\-]+$/)
   end
 
   def from_json(json) do

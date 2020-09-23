@@ -37,7 +37,7 @@ defmodule ImsWeb.ProductTest do
 
   test "SKU should have only letters, numbers and hyphen" do
     changeset = @valid_product_attrs
-    |> Map.put(:SKU, "@'~;")
+    |> Map.put(:SKU, "1@~;")
     |> Product.create()
 
     assert "has invalid format" in errors_on(changeset).'SKU'
