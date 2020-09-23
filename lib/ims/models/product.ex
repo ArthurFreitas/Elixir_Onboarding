@@ -9,7 +9,7 @@ defmodule Ims.Product do
     field :description
     field :name
     field :barcode
-    field :price, :float
+    field :price, :float, default: 0
     field :quantity, :integer
   end
 
@@ -21,7 +21,7 @@ defmodule Ims.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:SKU, :name, :description, :quantity, :price, :barcode])
-    |> validate_required([:SKU, :name, :price])
+    |> validate_required([:SKU, :name])
     |> validate_number(:price, greater_than: 0)
     |> validate_format(:SKU, ~r/^[a-zA-Z0-9\-]+$/)
     |> validate_format(:barcode, ~r/^[0-9]+$/)

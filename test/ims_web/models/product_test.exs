@@ -53,4 +53,8 @@ defmodule ImsWeb.ProductTest do
     |> Product.create()
     assert "should be at most 13 character(s)" in errors_on(changeset).barcode
   end
+
+  test "price should default to zero" do
+    assert 0 = %Product{}.price
+  end
 end
