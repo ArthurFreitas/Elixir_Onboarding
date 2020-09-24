@@ -4,8 +4,11 @@ defmodule ImsWeb.ProductControllerTest do
 
   @moduletag :integration
 
-  test "GET /product/index", %{conn: conn} do
-    conn = get(conn, Routes.product_path(conn, :index))
-    assert html_response(conn, 200) =~ "Stock"
+  describe "index" do
+    test "list all products", %{conn: conn} do
+      conn = get(conn, Routes.product_path(conn, :index))
+
+      assert html_response(conn, 200) =~ "Stock"
+    end
   end
 end
