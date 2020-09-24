@@ -1,8 +1,11 @@
 defmodule ImsWeb.ProductControllerTest do
   use ImsWeb.ConnCase
+  use Ims.DataCase
 
-  test "GET /product/", %{conn: conn} do
-    conn = get(conn, "/product/")
+  @moduletag :integration
+
+  test "GET /product/index", %{conn: conn} do
+    conn = get(conn, Routes.product_path(conn, :index))
     assert html_response(conn, 200) =~ "Stock"
   end
 end

@@ -1,4 +1,4 @@
-defmodule Ims.RedisHelper do
+defmodule Ims.RedisHelper.HTTPClient do
   alias Exredis.Api
   alias Poison
 

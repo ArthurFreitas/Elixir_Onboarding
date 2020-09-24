@@ -84,3 +84,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :ims, :redis_helper, Ims.RedisHelper.HTTPClient
+config :ims, :elastic_search_helper, Ims.ElasticSearchHelper.HTTPClient
