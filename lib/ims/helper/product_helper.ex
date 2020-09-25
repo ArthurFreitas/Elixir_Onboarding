@@ -2,16 +2,17 @@ defmodule Ims.ProductHelper do
   import Ecto.Query, warn: false
   alias Ims.Repo
   alias Ims.Product
-  alias Ims.RedisHelper
+
+  @redis_helper Application.get_env(:ims, :redis_helper)
 
   def list do
     Repo.all(Product)
   end
 
   def get(id) do
-    with {:error, _} <- RedisHelper.get(id),
+    with {:error, _} <- @redis_helper.get(id),
       %Product{} = product <- Repo.get(Product, id) do
-        RedisHelper.set(product)
+        @redis_helper.set(product)
         {:ok, product}
       else
         {:ok, json} ->
@@ -28,19 +29,19 @@ defmodule Ims.ProductHelper do
   end
 
   def update(%Product{} = product, attrs) do
-    RedisHelper.del(product)
+    @redis_helper.del(product)
     product
     |> Product.changeset(attrs)
     |> Repo.update()
   end
 
   def delete(id) when is_bitstring(id) do
-    {:ok, product} = get(id)
-    delete(product)
+    Repo.get(Product,id)
+    |> delete
   end
 
   def delete(%Product{} = product) do
-    RedisHelper.del(product)
+    @redis_helper.del(product)
     Repo.delete(product)
   end
 end

@@ -1,4 +1,4 @@
-defmodule Ims.ElasticSearchHelper do
+defmodule Ims.ElasticSearchHelper.HTTPClient do
   alias Tirexs.HTTP, as: Api
   alias Ims.TupleExtensions
 
