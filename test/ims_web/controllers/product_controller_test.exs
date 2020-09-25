@@ -27,10 +27,10 @@ defmodule ImsWeb.ProductControllerTest do
       assert redirected_to(conn) == "/product"
 
       conn = get(conn, Routes.product_path(conn, :index))
-      assert html_response(conn, 200) =~ @valid_product_attrs.'SKU'
-      assert html_response(conn, 200) =~ to_string(@valid_product_attrs.price)
-      assert html_response(conn, 200) =~ @valid_product_attrs.name
-      assert html_response(conn, 200) =~ @valid_product_attrs.barcode
+      body = assert response(conn, 200)
+      for {_k, v} <- @valid_product_attrs do
+        assert body =~ to_string(v)
+      end
     end
   end
 end
