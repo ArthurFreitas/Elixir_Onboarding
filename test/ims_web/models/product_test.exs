@@ -9,12 +9,12 @@ defmodule ImsWeb.ProductTest do
     barcode: "12345678"
   }
 
-  describe "In changeset," do
-    test "a valid product should have no errors" do
+  describe "A valid product" do
+    test "has no validation errors" do
       assert  [] = Product.changeset(@valid_product_attrs).errors
     end
 
-    test "name is a required product field" do
+    test "always has a name" do
       changeset = @valid_product_attrs
       |> Map.delete(:name)
       |> Product.changeset()
@@ -22,7 +22,7 @@ defmodule ImsWeb.ProductTest do
       assert "can't be blank" in errors_on(changeset).name
     end
 
-    test "price is greater than zero" do
+    test "has a price that is greater than zero" do
       changeset = @valid_product_attrs
       |> Map.put(:price, -1.0)
       |> Product.changeset()
@@ -30,7 +30,7 @@ defmodule ImsWeb.ProductTest do
       assert "must be greater than 0" in errors_on(changeset).price
     end
 
-    test "SKU should have only letters, numbers and hyphen" do
+    test "has a SKU with only letters, numbers and hyphens" do
       changeset = @valid_product_attrs
       |> Map.put(:SKU, "1@~;")
       |> Product.changeset()
@@ -38,7 +38,7 @@ defmodule ImsWeb.ProductTest do
       assert "has invalid format" in errors_on(changeset).'SKU'
     end
 
-    test "barcode should have more than 8 and less than 13 digits" do
+    test "has a barcode with more than 8 and less than 13 digits" do
       changeset = @valid_product_attrs
       |> Map.put(:barcode, "1234567a")
       |> Product.changeset()
@@ -55,11 +55,11 @@ defmodule ImsWeb.ProductTest do
       assert "should be at most 13 character(s)" in errors_on(changeset).barcode
     end
 
-    test "price should default to zero" do
+    test "has a price field that defaults to zero" do
       assert 0 = %Product{}.price
     end
 
-    test "barcode should default to 00000000" do
+    test "has a barcode field that defaults to 00000000" do
       assert "00000000" = %Product{}.barcode
     end
   end
