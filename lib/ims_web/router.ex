@@ -40,6 +40,11 @@ defmodule ImsWeb.Router do
     delete "/:id", ProductController, :destroy
   end
 
+  scope "/report", ImsWeb do
+    pipe_through :browser
+    post "/create", ReportController, :create
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ImsWeb do
   #   pipe_through :api
