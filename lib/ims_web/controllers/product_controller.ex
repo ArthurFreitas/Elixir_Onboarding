@@ -47,12 +47,15 @@ defmodule ImsWeb.ProductController do
   end
 
   def update(conn, %{"id" => id, "product" => updatedProduct}) do
-    case ProductHelper.get(id) do
-      {:ok, %Product{} = product} ->
-        ProductHelper.update(product, updatedProduct)
-        @elastic_search_helper.post(:product, :update, conn, product)
-        redirectToIndex(conn)
-      {:error, _} -> missing(conn)
+    with  {:ok, %Product{} = product} <- ProductHelper.get(id),
+          {:ok, updatedProduct} <- ProductHelper.update(product, updatedProduct) do
+            @elastic_search_helper.post(:product, :update, conn, updatedProduct)
+            redirectToIndex(conn)
+    else
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, :edit, changeset: changeset, product: %Product{id: id})
+      {:error, _} ->
+        missing(conn)
     end
   end
 

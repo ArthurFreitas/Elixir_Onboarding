@@ -85,6 +85,33 @@ defmodule ImsWeb.ProductControllerTest do
 
   end
 
+  describe "update product" do
+    test "updates product with valid info", %{conn: conn} do
+      updated_product = %{@valid_product_attrs | SKU: "updated-sku"}
+
+      {conn, %Product{id: id}} = create_valid_product(conn)
+
+      conn = post(conn, Routes.product_path(conn, :update, id), product: updated_product)
+      assert redirected_to(conn) == "/product"
+
+      conn = get(conn, Routes.product_path(conn, :show, id))
+      body = assert response(conn, 200)
+      assert_product_attrs_in_body(body, updated_product)
+    end
+
+    test "shows missing product info if it doesn't exist", %{conn: conn} do
+      conn = post(conn, Routes.product_path(conn, :update, @non_existing_product_id), product: @valid_product_attrs)
+      assert response(conn, 404)
+    end
+
+    test "renders errors when updated data is invalid", %{conn: conn} do
+      {conn, %Product{id: id}} = create_valid_product(conn)
+
+      conn = post(conn, Routes.product_path(conn, :update, id), product: @invalid_product_attrs)
+      assert response(conn, 200) =~ "error"
+    end
+  end
+
   defp create_valid_product(conn) do
     conn = post(conn, Routes.product_path(conn, :create), product: @valid_product_attrs)
     product = Ims.ProductHelper.list()
