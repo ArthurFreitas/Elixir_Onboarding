@@ -1,9 +1,14 @@
 defmodule ImsWeb.ReportController do
   use ImsWeb, :controller
+  alias Ims.QueueHelper
+  alias Ims.DTO.Message
 
   def create(conn, %{"type" => type}) do
     case type do
       "product" ->
+        %Message{action: :create, type: :product}
+        |> QueueHelper.enqueue(:report)
+
         conn
         |> put_flash(:info, "The report will be available shortly.")
         |> redirect(to: Routes.product_path(conn, :index))
