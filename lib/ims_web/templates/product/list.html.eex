@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>SKU</th>
+      <th>Barcode</th>
       <th>Name</th>
       <th>Description</th>
       <th>Quantity</th>
@@ -15,6 +16,7 @@
     <%= for product <- @products do %>
       <tr>
         <td><%= product."SKU" %></td>
+        <td><%= product.barcode %></td>
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.quantity %></td>

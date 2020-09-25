@@ -4,6 +4,11 @@
 </p>
 
 <p>
+  <strong>Barcode:</strong>
+  <%= @product.barcode%>
+</p>
+
+<p>
   <strong>Nome:</strong>
   <%= @product.name %>
 </p>

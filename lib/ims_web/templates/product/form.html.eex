@@ -2,6 +2,9 @@
   <%= label f, :SKU %>
   <%= text_input f, :SKU %>
 
+  <%= label f, :barcode %>
+  <%= text_input f, :barcode %>
+
   <%= label f, :name %>
   <%= text_input f, :name %>
 
