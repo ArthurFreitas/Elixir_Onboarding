@@ -57,9 +57,13 @@ defmodule ImsWeb.ProductController do
   end
 
   def destroy(conn, %{"id" => id} = idMap) do
-    ProductHelper.delete(id)
-    @elastic_search_helper.post(:product, :destroy, conn, idMap)
-    redirectToIndex(conn)
+    case ProductHelper.get(id) do
+      {:ok, %Product{} = product} ->
+        ProductHelper.delete(product)
+        @elastic_search_helper.post(:product, :destroy, conn, idMap)
+        redirectToIndex(conn)
+      {:error, _} -> missing(conn)
+    end
   end
 
   def missing(conn, _params\\ nil) do

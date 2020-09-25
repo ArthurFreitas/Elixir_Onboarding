@@ -36,8 +36,8 @@ defmodule Ims.ProductHelper do
   end
 
   def delete(id) when is_bitstring(id) do
-    {:ok, product} = get(id)
-    delete(product)
+    Repo.get(Product,id)
+    |> delete
   end
 
   def delete(%Product{} = product) do

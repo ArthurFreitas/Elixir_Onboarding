@@ -49,6 +49,24 @@ defmodule ImsWeb.ProductControllerTest do
 
   end
 
+  describe "delete product" do
+    test "deletes existing product", %{conn: conn} do
+      {conn, product} = create_valid_product(conn)
+
+      conn = delete(conn, Routes.product_path(conn, :destroy, product))
+      assert redirected_to(conn) == "/product"
+
+      conn = get(conn, Routes.product_path(conn, :show, product.id))
+      assert response(conn, 404)
+    end
+
+    test "show missing page if the product doesnt exist", %{conn: conn} do
+      conn = delete(conn, Routes.product_path(conn, :destroy, @non_existing_product_id))
+      body = assert response(conn, 404)
+      assert body =~ "This product does not exist"
+    end
+  end
+
   describe "show product" do
 
     test "shows product info", %{conn: conn} do
