@@ -13,12 +13,8 @@ defmodule Ims.Product do
     field :quantity, :integer
   end
 
-  def create(attrs) do
-    %Ims.Product{}
-    |> changeset(attrs)
-  end
   @doc false
-  def changeset(product, attrs) do
+  def changeset(product \\ %Ims.Product{}, attrs) do
     product
     |> cast(attrs, [:SKU, :name, :description, :quantity, :price, :barcode])
     |> validate_required([:SKU, :name])
