@@ -31,9 +31,13 @@ defmodule ImsWeb.ProductController do
   end
 
   def create(conn, %{"product" => product}) do
-    ProductHelper.insert(product)
-    @elastic_search_helper.post(:product, :create, conn, product)
-    redirectToIndex(conn)
+    case ProductHelper.insert(product) do
+      {:ok, _product} ->
+        @elastic_search_helper.post(:product, :create, conn, product)
+        redirectToIndex(conn)
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, :new, changeset: changeset)
+    end
   end
 
   def update(conn, %{"id" => id, "product" => updatedProduct}) do

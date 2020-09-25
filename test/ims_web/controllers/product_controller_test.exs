@@ -12,6 +12,12 @@ defmodule ImsWeb.ProductControllerTest do
     barcode: "12345678"
   }
 
+  @invalid_product_attrs %{
+    SKU: "1@~;",
+    barcode: "1234567a",
+    price: -1
+  }
+
   describe "index" do
     test "redirects to stock page", %{conn: conn} do
       conn = get(conn, Routes.product_path(conn, :index))
@@ -31,6 +37,10 @@ defmodule ImsWeb.ProductControllerTest do
       for {_k, v} <- @valid_product_attrs do
         assert body =~ to_string(v)
       end
+    end
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = post(conn, Routes.product_path(conn, :create), product: @invalid_product_attrs)
+      assert html_response(conn, 200) =~ "error"
     end
   end
 end
