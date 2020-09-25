@@ -2,6 +2,7 @@ defmodule ImsWeb.ProductControllerTest do
   use ExUnit.Case, async: false
   use Ims.DataCase, async: false
   use ImsWeb.ConnCase
+  alias Ims.Product
 
   @moduletag :integration
 
@@ -18,6 +19,8 @@ defmodule ImsWeb.ProductControllerTest do
     price: -1
   }
 
+  @non_existing_product_id "5f6207f37200b53f472927ce"
+
   describe "index" do
     test "redirects to stock page", %{conn: conn} do
       conn = get(conn, Routes.product_path(conn, :index))
@@ -27,20 +30,55 @@ defmodule ImsWeb.ProductControllerTest do
   end
 
   describe "create product" do
+
     test "redirects to index and lists new product", %{conn: conn} do
-      conn = post(conn, Routes.product_path(conn, :create), product: @valid_product_attrs)
+      {conn, product} = create_valid_product(conn)
 
       assert redirected_to(conn) == "/product"
+      assert product.'SKU' =~ @valid_product_attrs.'SKU'
 
       conn = get(conn, Routes.product_path(conn, :index))
       body = assert response(conn, 200)
-      for {_k, v} <- @valid_product_attrs do
-        assert body =~ to_string(v)
-      end
+      assert_product_attrs_in_body(body, @valid_product_attrs)
     end
+
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.product_path(conn, :create), product: @invalid_product_attrs)
-      assert html_response(conn, 200) =~ "error"
+      assert response(conn, 200) =~ "error"
+    end
+
+  end
+
+  describe "show product" do
+
+    test "shows product info", %{conn: conn} do
+      {conn, %Product{id: id}} = create_valid_product(conn)
+
+      conn = get(conn, Routes.product_path(conn, :show, id))
+      body = assert response(conn, 200)
+      assert_product_attrs_in_body(body, @valid_product_attrs)
+    end
+
+    test "shows missing product info if it doesn't exist", %{conn: conn} do
+      conn = get(conn, Routes.product_path(conn, :show, @non_existing_product_id))
+      body = assert response(conn, 404)
+      assert body =~ "This product does not exist"
+    end
+
+  end
+
+  defp create_valid_product(conn) do
+    conn = post(conn, Routes.product_path(conn, :create), product: @valid_product_attrs)
+    product = Ims.ProductHelper.list()
+    |> Enum.filter(fn (p) -> p.'SKU' == @valid_product_attrs.'SKU' end)
+    |> hd
+
+    {conn, product}
+  end
+
+  defp assert_product_attrs_in_body(body, attrs) do
+    for {_k, v} <- attrs do
+      assert body =~ to_string(v)
     end
   end
 end
