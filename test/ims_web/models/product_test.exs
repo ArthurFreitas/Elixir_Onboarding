@@ -1,5 +1,5 @@
 defmodule ImsWeb.ProductTest do
-  use Ims.DataCase
+  use Ims.DataCase, async: true
   alias Ims.Product
 
   @valid_product_attrs %{
