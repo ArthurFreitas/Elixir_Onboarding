@@ -24,6 +24,7 @@ defmodule Ims.DataCase do
     unless tags[:async] do
       Mongo.Ecto.truncate(Ims.Repo, [])
     end
+    :ok
   end
 
   @doc """
