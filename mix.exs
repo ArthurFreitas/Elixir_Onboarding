@@ -20,7 +20,7 @@ defmodule Ims.MixProject do
   def application do
     [
       mod: {Ims.Application, []},
-      extra_applications: [:logger, :runtime_tools, :mongodb_ecto, :ecto]
+      extra_applications: [:logger, :runtime_tools, :mongodb_ecto, :ecto, :task_bunny]
     ]
   end
 
@@ -49,8 +49,8 @@ defmodule Ims.MixProject do
       {:poison, "~> 3.1"},
       {:tirexs, "~> 0.8.15"},
       {:mock, "~> 0.3.0", only: :test},
-      {:amqp , git: "https://github.com/pma/amqp.git", tag: "v1.5.0"},
-      {:jsx, "~> 2.11.0", override: true}
+      {:jsx, "~> 2.11.0", override: true},
+      {:task_bunny, "~> 0.3.4"}
     ]
   end
 

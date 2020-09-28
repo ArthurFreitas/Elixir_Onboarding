@@ -1,8 +1,7 @@
 defmodule Ims.QueueHelper do
   alias Ims.DTO.Message
-  def enqueue(%Message{} = msg, queue) do
-  end
 
-  def dequeue(queue) do
+  def enqueue(%Message{} = msg, job_module) do
+    TaskBunny.Job.enqueue(job_module, msg)
   end
 end
