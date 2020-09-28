@@ -48,7 +48,9 @@ defmodule Ims.MixProject do
       {:exredis, ">= 0.2.4"},
       {:poison, "~> 3.1"},
       {:tirexs, "~> 0.8.15"},
-      {:meck, "~> 0.8.2", only: :test}
+      {:mock, "~> 0.3.0", only: :test},
+      {:amqp , git: "https://github.com/pma/amqp.git", tag: "v1.5.0"},
+      {:jsx, "~> 2.11.0", override: true}
     ]
   end
 
