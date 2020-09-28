@@ -4,17 +4,19 @@ defmodule ImsWeb.ReportControllerTest do
   alias Ims.DTO.Message
   import Mock
 
+  setup_with_mocks([{Ims.QueueHelper, [], [enqueue: fn(_msg, _queue) -> :ok end]}], context) do
+    context
+  end
+
   describe "request product report" do
-    test_with_mock "redirects to index and flashes that it will be available soon", %{conn: conn},
-      Ims.QueueHelper, [], [enqueue: fn(_msg, _queue) -> :ok end] do
+    test "redirects to index and flashes that it will be available soon", %{conn: conn} do
 
       conn = post(conn, Routes.report_path(conn, :create), type: "product")
 
       assert get_flash(conn, :info) =~ "The report will be available shortly"
     end
 
-    test_with_mock "enqueues a generate product report request", %{conn: conn},
-      Ims.QueueHelper, [], [enqueue: fn(_msg, _queue) -> :ok end] do
+    test "enqueues a generate product report request", %{conn: conn} do
 
       post(conn, Routes.report_path(conn, :create), type: "product")
 
