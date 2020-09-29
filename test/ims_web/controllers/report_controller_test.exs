@@ -8,7 +8,7 @@ defmodule ImsWeb.ReportControllerTest do
     action: :create,
     type: :product
   }
-  @job_module Ims.ReportJob
+  @job_module ImsReport.Job.ReportJob
 
   setup_with_mocks([{Ims.QueueHelper, [], [enqueue: fn(_msg, _queue) -> :ok end]}], context) do
     context

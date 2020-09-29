@@ -25,7 +25,7 @@ config :tirexs,
 
   config :task_bunny, queue: [
     namespace: "task_bunny.",
-    queues: [[name: "report", jobs: [Ims.ReportJob], worker: false]]
+    queues: [[name: "report", jobs: :default, worker: false]]
   ]
 
 # For development, we disable any cache and enable

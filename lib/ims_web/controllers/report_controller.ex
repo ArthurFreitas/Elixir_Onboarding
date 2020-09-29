@@ -7,7 +7,7 @@ defmodule ImsWeb.ReportController do
     case type do
       "product" ->
         %Message{action: :create, type: :product}
-        |> QueueHelper.enqueue(Ims.ReportJob)
+        |> QueueHelper.enqueue(ImsReport.Job.ReportJob)
 
         conn
         |> put_flash(:info, "The report will be available shortly.")

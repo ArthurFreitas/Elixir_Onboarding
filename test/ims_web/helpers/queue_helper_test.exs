@@ -5,7 +5,7 @@ defmodule Ims.QueueHelperTest do
   alias Ims.DTO.Message
 
   @payload %Message{}
-  @job_module Ims.ReportJob
+  @job_module ImsReport.Job.ReportJob
 
   setup_with_mocks([{TaskBunny.Job, [], [enqueue: fn(_job_module, _msg) -> :ok end]}], context) do
     context
