@@ -56,7 +56,7 @@ defmodule ImsWeb.ProductTest do
     end
 
     test "has a price field that defaults to zero" do
-      assert 0 = %Product{}.price
+      assert 0.0 = %Product{}.price
     end
 
     test "has a barcode field that defaults to 00000000" do
