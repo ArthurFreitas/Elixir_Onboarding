@@ -88,4 +88,4 @@ config :phoenix, :plug_init_mode, :runtime
 config :ims, :redis_helper, Ims.RedisHelper.HTTPClient
 config :ims, :elastic_search_helper, Ims.ElasticSearchHelper.HTTPClient
 
-config :ims, :report_service_url, "localhost:4001"
+config :ims, :report_service_api_url, "http://localhost:4001/api"
