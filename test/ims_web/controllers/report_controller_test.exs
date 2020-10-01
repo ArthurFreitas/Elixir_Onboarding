@@ -4,13 +4,12 @@ defmodule ImsWeb.ReportControllerTest do
   alias Ims.DTO.Message
   import Mock
 
-  @create_report_payload %Message{
-    action: :create,
-    type: :product
+  @params_sent %{
+    "email" => "teste@gmail.com",
+    "type" => "product"
   }
-  @job_module ImsReport.Job.ReportJob
 
-  setup_with_mocks([{Ims.QueueHelper, [], [enqueue: fn(_msg, _queue) -> :ok end]}], context) do
+  setup_with_mocks([{Ims.HttpClient.ReportService, [], [create: fn(params) -> :ok end]}], context) do
     context
   end
 
@@ -24,9 +23,9 @@ defmodule ImsWeb.ReportControllerTest do
 
     test "enqueues a generate product report request", %{conn: conn} do
 
-      post(conn, Routes.report_path(conn, :create), type: "product")
+      post(conn, Routes.report_path(conn, :create), @params_sent)
 
-      assert_called(Ims.QueueHelper.enqueue(@create_report_payload, @job_module))
+      assert_called(Ims.HttpClient.ReportService.create(@params_sent))
     end
   end
 end

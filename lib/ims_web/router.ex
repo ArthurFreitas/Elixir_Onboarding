@@ -42,7 +42,8 @@ defmodule ImsWeb.Router do
 
   scope "/report", ImsWeb do
     pipe_through :browser
-    post "/create", ReportController, :create
+    post "/new", ReportController, :create
+    post "/", ReportController, :create
   end
 
   # Other scopes may use custom stacks.
