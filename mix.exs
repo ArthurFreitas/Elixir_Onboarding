@@ -20,7 +20,7 @@ defmodule Ims.MixProject do
   def application do
     [
       mod: {Ims.Application, []},
-      extra_applications: [:logger, :runtime_tools, :mongodb_ecto, :ecto]
+      extra_applications: [:logger, :runtime_tools, :mongodb_ecto, :ecto, :task_bunny]
     ]
   end
 
@@ -47,7 +47,10 @@ defmodule Ims.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:exredis, ">= 0.2.4"},
       {:poison, "~> 3.1"},
-      {:tirexs, "~> 0.8.15"}
+      {:tirexs, "~> 0.8.15"},
+      {:mock, "~> 0.3.0", only: :test},
+      {:jsx, "~> 2.11.0", override: true},
+      {:task_bunny, "~> 0.3.4"}
     ]
   end
 

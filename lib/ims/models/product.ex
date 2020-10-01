@@ -9,7 +9,7 @@ defmodule Ims.Product do
     field :description
     field :name
     field :barcode, :string, default: "00000000"
-    field :price, :float, default: 0
+    field :price, :float, default: 0/1 #0 as float
     field :quantity, :integer
   end
 

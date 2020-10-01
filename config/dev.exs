@@ -19,6 +19,15 @@ config :tirexs,
   uri: "http://127.0.0.1:9200",
   log: true
 
+  config :task_bunny, hosts: [
+    default: [connect_options: "amqp://localhost?heartbeat=30"]
+  ]
+
+  config :task_bunny, queue: [
+    namespace: "task_bunny.",
+    queues: [[name: "report", jobs: :default, worker: false]]
+  ]
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
