@@ -42,7 +42,7 @@ defmodule ImsWeb.Router do
 
   scope "/report", ImsWeb do
     pipe_through :browser
-    get "new", ReportController, :new
+    get "/new", ReportController, :new
     post "/new", ReportController, :create
   end
 

@@ -11,7 +11,7 @@ defmodule ImsWeb.ReportController do
       |> ReportService.create
 
       conn
-      |> put_flash(:info, "The report will be sent shortly.")
+      |> put_flash(:info, "The report will be sent shortly")
       |> redirect(to: Routes.product_path(conn, :index))
   end
 end
