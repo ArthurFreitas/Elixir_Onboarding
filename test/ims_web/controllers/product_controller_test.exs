@@ -116,7 +116,7 @@ defmodule ImsWeb.ProductControllerTest do
     conn = post(conn, Routes.product_path(conn, :create), product: @valid_product_attrs)
     product = Ims.ProductHelper.list()
     |> Enum.filter(fn (p) -> p.'SKU' == @valid_product_attrs.'SKU' end)
-    |> hd
+    |> hd()
 
     {conn, product}
   end

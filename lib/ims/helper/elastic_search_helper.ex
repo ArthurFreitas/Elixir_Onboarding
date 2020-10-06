@@ -4,7 +4,9 @@ defmodule Ims.ElasticSearchHelper.HTTPClient do
 
   def post(index, type, conn, map \\ %{}) do
     map = Map.delete(map, :__meta__)
-    make_uri_for(index,type)
+
+    index
+    |> make_uri_for(type)
     |> Api.post(add_default_event_header(conn, map))
   end
 

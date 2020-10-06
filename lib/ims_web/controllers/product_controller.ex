@@ -76,6 +76,8 @@ defmodule ImsWeb.ProductController do
   end
 
   defp redirectToIndex(conn) do
-    conn |> redirect(to: "/product") |> halt()
+    conn
+    |> redirect(to: "/product")
+    |> halt()
   end
 end

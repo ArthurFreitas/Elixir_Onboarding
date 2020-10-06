@@ -8,7 +8,7 @@ defmodule ImsWeb.ReportController do
   def create(conn, params) do
       params
       |> Map.drop(["_csrf_token"])
-      |> ReportService.create
+      |> ReportService.create()
 
       conn
       |> put_flash(:info, "The report will be sent shortly")
