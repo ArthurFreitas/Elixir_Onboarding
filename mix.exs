@@ -51,7 +51,8 @@ defmodule Ims.MixProject do
       {:mock, "~> 0.3.0", only: :test},
       {:jsx, "~> 2.11.0", override: true},
       {:tesla, "~> 1.3.0"},
-      {:hackney, "~> 1.10"}
+      {:hackney, "~> 1.10"},
+      {:sentry, "8.0.0"}
     ]
   end
 

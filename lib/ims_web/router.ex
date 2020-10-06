@@ -24,6 +24,7 @@ defmodule ImsWeb.Router do
   scope "/", ImsWeb do
     pipe_through :browser
     get "/", ProductController, :index
+    get "sentry_check", PageController, :sentry_check
   end
 
   scope "/product", ImsWeb do
