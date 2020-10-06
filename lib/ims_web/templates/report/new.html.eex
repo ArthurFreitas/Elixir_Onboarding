@@ -1,0 +1,13 @@
+<h1>New Product</h1>
+
+<%= form_for @conn, Routes.report_path(@conn, :create), [type: :type, email: :email], fn f -> %>
+  <%= select f, :type, %{Product: :product} %>
+  <%= text_input f, :email %>
+
+  <div>
+    <%= submit "Send Report" %>
+  </div>
+<% end %>
+
+
+<span><%= link "Back", to: Routes.product_path(@conn, :index) %></span>
