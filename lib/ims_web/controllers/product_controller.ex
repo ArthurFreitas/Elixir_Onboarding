@@ -70,6 +70,7 @@ defmodule ImsWeb.ProductController do
   end
 
   def missing(conn, _params\\ nil) do
+    Sentry.capture_message("missing_product")
     conn
     |> put_status(404)
     |> render(:missing)
